@@ -1,0 +1,5 @@
+localhost
+
+[prod]
+#Istead this file you should use dynamic script
+s1 ansible_host=1.2.3.4 ansible_ssh_user=root ansible_password=T@jn3!

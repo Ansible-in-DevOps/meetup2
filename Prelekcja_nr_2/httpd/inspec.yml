@@ -1,0 +1,10 @@
+name: httpd
+title: InSpec Profile
+maintainer: Dawid Dacewicz
+copyright: Dawid Dacewicz
+copyright_email: daca444@gmail.com
+license: Apache-2.0
+summary: An InSpec Compliance Profile
+version: 1.0
+supports:
+  platform: os

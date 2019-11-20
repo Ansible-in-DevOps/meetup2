@@ -1,0 +1,69 @@
+---
+
+- name: Install apache httpd on RHEL distribution
+  become: yes
+  yum:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - httpd 
+    - unzip
+  when: ansible_os_family == "RedHat"
+
+- name: Install apache httpd on Debian distribution
+  become: yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - apache2
+    - unzip
+  when: ansible_os_family == "Debian"
+
+- name: Start and enable apache on RedHat distribution
+  become: yes
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Unarchive deployed package
+  become: yes
+  unarchive:
+    src: "{{ WEBSITE_PACKAGE }}"
+    dest: /var/www/html
+
+- name: Apply template
+  become: yes
+  template:
+    src: index.html.yml
+    dest: /var/www/html/index.html
+
+- name: check website
+  uri:
+    url: http://localhost
+    return_content: yes
+  register: result
+  until: result.content.find("Coming Soon!") != -1
+  retries: 10
+  delay: 5
+
+- name: Set ServerTokens Prod
+  lineinfile: 
+    path: /etc/httpd/conf/httpd.conf 
+    regexp: '^ServerTokens' 
+    line: 'ServerTokens Prod' 
+    backup: yes
+
+- name: Set ServerSignature Off
+  lineinfile: 
+    path: /etc/httpd/conf/httpd.conf 
+    regexp: '^ServerSignature' 
+    line: 'ServerSignature Off' 
+    backup: yes
+
+- name: Restart apache httpd (shoul be as handler - just for easy readable)
+  service:
+    name: httpd
+    state: restarted
