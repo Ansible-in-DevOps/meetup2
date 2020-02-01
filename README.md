@@ -47,3 +47,4 @@ ansible-playbook deploy.yml
 ````
 inspec shell -t ssh://root@1.1.1.1 --password T@jn3! --sudo
 ````
+
