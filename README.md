@@ -1,5 +1,6 @@
 # meetup2
 AiDO Meetup#2 - https://www.meetup.com/pl-PL/Ansible-in-DevOps-Torun-Bydgoszcz/events/266216484/
+Youtube - https://www.youtube.com/playlist?list=PL-2nM3otnXgruHvo87HYSOgUBugO0m09x
 
 # Prelekcja nr 1 -> Czym jest wirtualizacja z użyciem VMware? Warsztat z Terraformem.
 
